@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.example.to_docompose.utils.Constants.DATABASE_TABLE_NAME
 
 @Entity(tableName = DATABASE_TABLE_NAME)
-data class ManagerTask(
+data class ToDoTask(
     @PrimaryKey(autoGenerate = true)
     val id : Int = 0,
     val title : String,
