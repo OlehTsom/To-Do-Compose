@@ -24,7 +24,7 @@ class SharedVieModel @Inject constructor(
     fun getAllTasks(){
         viewModelScope.launch {
             toDoRepository.getAllTasks.collect{
-                _allTasksState.emit(it
+                _allTasksState.emit(it)
             }
         }
     }
