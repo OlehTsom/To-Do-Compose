@@ -15,7 +15,7 @@ import com.example.to_docompose.R
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ListScreen(
-    navigateToTaskScreen: (Int) -> Unit
+    navigateToTaskScreen: (taskId: Int) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -30,7 +30,7 @@ fun ListScreen(
 
 @Composable
 fun ListFab(
-    onFabClicked: (Int) -> Unit
+    onFabClicked: (taskId: Int) -> Unit
 ) {
     //TODO("Замінити на Extended FAB")
     FloatingActionButton(
