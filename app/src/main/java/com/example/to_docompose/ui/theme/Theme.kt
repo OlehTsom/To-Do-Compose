@@ -103,7 +103,13 @@ fun ToDoComposeTheme(
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+            val win = WindowCompat.getInsetsController(window, view) //.isAppearanceLightStatusBars = !darkTheme
+            if (darkTheme) {
+                win.isAppearanceLightStatusBars = !darkTheme
+            }else{
+                win.isAppearanceLightStatusBars = darkTheme
+            }
+
         }
     }
 
