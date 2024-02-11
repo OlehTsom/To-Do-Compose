@@ -264,7 +264,7 @@ fun SearchAppBar(
                     color = Color.White
                 )
             },
-            textStyle = MaterialTheme.typography.bodyMedium,
+            textStyle = MaterialTheme.typography.bodyLarge,
             singleLine = true,
             leadingIcon = {
                 IconButton(onClick = { /*TODO*/ }) {
