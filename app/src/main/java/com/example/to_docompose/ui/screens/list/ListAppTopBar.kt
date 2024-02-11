@@ -41,21 +41,45 @@ import com.example.to_docompose.R
 import com.example.to_docompose.components.PriorityItem
 import com.example.to_docompose.data.models.Priority
 import com.example.to_docompose.ui.theme.SEARCH_TOP_BAR_HIGH
+import com.example.to_docompose.ui.viewmodels.SharedVieModel
+import com.example.to_docompose.utils.SearchAppBarState
+import com.example.to_docompose.utils.TrailingIconState
 
 @Composable
-fun ListAppTopBar() {
-   /* DefaultListAppTopBar(
-        onSearchClicked = {},
-        onSortClicked = {},
-        onDeleteClicked = {}
-    )*/
+fun ListAppTopBar(
+    sharedVieModel: SharedVieModel,
+    searchAppBarState: SearchAppBarState,
+    searchTextState: String
+) {
 
-    SearchAppBar(
-        text = "" ,
-        onTextChange = {},
-        onSearchClicked = { },
-        onCloseClicked = {}
-    )
+    when(searchAppBarState){
+        SearchAppBarState.CLOSED ->{
+            DefaultListAppTopBar(
+                onSearchClicked = {
+                    sharedVieModel.searchAppBarState.value =
+                        SearchAppBarState.OPENED
+                },
+                onSortClicked = {},
+                onDeleteClicked = {}
+            )
+        }
+        else -> {
+            SearchAppBar(
+                text = searchTextState ,
+                onTextChange = {newSearchQuery ->
+                    sharedVieModel.searchTextState.value =
+                        newSearchQuery
+                },
+                onSearchClicked = {},
+                onCloseClicked = {
+                    sharedVieModel.searchAppBarState.value =
+                        SearchAppBarState.CLOSED
+                    sharedVieModel.searchTextState.value = ""
+                }
+            )
+        }
+    }
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -214,6 +238,10 @@ fun SearchAppBar(
     onCloseClicked: () -> Unit
 ){
 
+    var trailingIconState by remember {
+        mutableStateOf(TrailingIconState.READY_TO_DELETE)
+    }
+
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -251,7 +279,24 @@ fun SearchAppBar(
             },
             trailingIcon = {
                 IconButton(onClick = {
-                    onCloseClicked()
+                    when(trailingIconState){
+                        TrailingIconState.READY_TO_DELETE ->{
+                            if (text.isEmpty()){
+                                onCloseClicked()
+                            }else{
+                                onTextChange("")
+                                trailingIconState = TrailingIconState.READY_TO_CLOSE
+                            }
+                        }
+                        TrailingIconState.READY_TO_CLOSE ->{
+                            if (text.isNotEmpty()){
+                                onTextChange("")
+                            }else{
+                                onCloseClicked()
+                                trailingIconState = TrailingIconState.READY_TO_DELETE
+                            }
+                        }
+                    }
                 }) {
                     Icon(
                         modifier = Modifier
