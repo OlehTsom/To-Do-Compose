@@ -1,5 +1,6 @@
 package com.example.to_docompose.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -84,4 +85,40 @@ val LowPriorityColor = Color(0xFF00C980)
 val MediumPriorityColor = Color(0xFFFFC114)
 val HighPriorityColor = Color(0xFFFF4646)
 val NonePriorityColor = Color(0xFFFFFFFF)
+
+val listColorLightTheme = listOf(
+    Color(0xFFE6E6FA),
+    Color(0xFFFFB6C1),
+    Color(0xFFFFFF99),
+    Color(0xFFFFE5B4),
+    Color(0xFFF5FFFA),
+    Color(0xFFF08080),
+    Color(0xFFD3D3D3),
+    Color(0xFFADD8E6),
+    Color(0xFF90EE90),
+    Color(0xFFFAFAFA),
+    )
+
+val listColorDarkTheme = listOf(
+    Color(0xFF6E7077),
+    Color(0xFF8B5F65),
+    Color(0xFF8B8B7A),
+    Color(0xFF8B7D6B),
+    Color(0xFF3C5148),
+    Color(0xFF8B6969),
+    Color(0xFFA9A9A9),
+    Color(0xFF5CACEE),
+    Color(0xFF4D8C57),
+    Color(0xFFCDCDC1),
+)
+
+fun getColorForLightOderDarkTheme(position: Int, isDarkTheme: Boolean): Color {
+    if (isDarkTheme) {
+        val index = position % listColorDarkTheme.size
+        return listColorDarkTheme[index]
+    }else{
+        val index = position % listColorLightTheme.size
+        return listColorLightTheme[index]
+    }
+}
 
