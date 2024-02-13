@@ -3,7 +3,6 @@ package com.example.to_docompose.ui.screens.list
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -19,7 +18,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -35,7 +33,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.UiMode
 import androidx.compose.ui.unit.dp
 import com.example.to_docompose.R
 import com.example.to_docompose.components.PriorityItem
@@ -91,7 +88,7 @@ fun DefaultListAppTopBar(
 ) {
     TopAppBar(
         title = {
-            Text(text = stringResource(R.string.tasks))
+            Text(text = stringResource(R.string.list_screen_title))
         },
         actions = {
             ListAppBarAction(
@@ -260,7 +257,7 @@ fun SearchAppBar(
                 Text(
                     modifier = Modifier
                         .alpha(0.5f),
-                    text = stringResource(R.string.search),
+                    text = stringResource(R.string.search_placeholder),
                     color = Color.White
                 )
             },
