@@ -1,6 +1,8 @@
 package com.example.to_docompose.ui.screens.list
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +18,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,7 +46,8 @@ fun TaskItem(
     Surface(
         modifier = Modifier
             .fillMaxWidth(),
-        color = MaterialTheme.colorScheme.onSecondary,   //TODO("Колір з ToDoTask витягувати")
+        color = if (isSystemInDarkTheme())
+            Color(toDoTask.taskColorDarkThemeArgb) else Color(toDoTask.taskColorLightThemeArgb),
         shape = ShapeDefaults.Small,
         shadowElevation = TASK_ITEM_ELEVATION,
         onClick = {
@@ -121,7 +126,9 @@ fun TaskItemPreview(){
             "Pläne für Montag",
             "Am 8:00 gehe ich einzukaufen, später treffe ich mich mit dem Freund jeh jhwke jhkjwhe  hwkej kwjhekw khwkejK  knwe",
             "13.02.2024",
-            Priority.LOW
+            Priority.LOW,
+            Color(0xFF4F378B).toArgb(),
+            Color(0xFFCCC2DC).toArgb()
         ),
         navigateToTaskScreen = {}
     )

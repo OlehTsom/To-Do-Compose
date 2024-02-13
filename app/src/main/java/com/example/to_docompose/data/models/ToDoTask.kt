@@ -1,7 +1,11 @@
 package com.example.to_docompose.data.models
 
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
 import com.example.to_docompose.utils.Constants.DATABASE_TABLE_NAME
 
 @Entity(tableName = DATABASE_TABLE_NAME)
@@ -11,5 +15,7 @@ data class ToDoTask(
     val title : String,
     val description : String,
     val dateAdded : String,
-    val priority : Priority
+    val priority : Priority,
+    val taskColorDarkThemeArgb: Int,
+    val taskColorLightThemeArgb: Int
 )
