@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Surface
@@ -23,6 +25,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.to_docompose.data.models.Priority
 import com.example.to_docompose.data.models.ToDoTask
 import com.example.to_docompose.ui.theme.DESCRIPTION_TEXT_END_PADDING
@@ -30,16 +33,34 @@ import com.example.to_docompose.ui.theme.LARGE_PADDING
 import com.example.to_docompose.ui.theme.MEDIUM_PADDING
 import com.example.to_docompose.ui.theme.PRIORITY_INDICATOR_SIZE
 import com.example.to_docompose.ui.theme.TASK_ITEM_ELEVATION
+import com.example.to_docompose.ui.theme.getColorForLightOderDarkTheme
 
 @Composable
-fun ListContent() {
-
+fun ListContent(
+    toDoTasks: List<ToDoTask>,
+    navigateToTaskScreen: (taskId: Int) -> Unit
+) {
+    LazyColumn() {
+        items(
+            toDoTasks.size,
+            key = { index ->
+                toDoTasks[index].id
+            }) {index ->
+            TaskItem(
+                toDoTask = toDoTasks[index],
+                navigateToTaskScreen = navigateToTaskScreen,
+                taskIndex = index
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+        }
+    }
 }
 
 @Composable
 fun TaskItem(
     toDoTask: ToDoTask,
-    navigateToTaskScreen: (taskId: Int) -> Unit
+    navigateToTaskScreen: (taskId: Int) -> Unit,
+    taskIndex: Int
 ) {
 
 
@@ -47,7 +68,10 @@ fun TaskItem(
         modifier = Modifier
             .fillMaxWidth(),
         color = if (isSystemInDarkTheme())
-            Color(toDoTask.taskColorDarkThemeArgb) else Color(toDoTask.taskColorLightThemeArgb),
+            getColorForLightOderDarkTheme(taskIndex, true) else getColorForLightOderDarkTheme(
+            taskIndex,
+            false
+        ),
         shape = ShapeDefaults.Small,
         shadowElevation = TASK_ITEM_ELEVATION,
         onClick = {
@@ -72,7 +96,7 @@ fun TaskItem(
                     modifier = Modifier
                         .weight(1f),
                     contentAlignment = Alignment.TopEnd
-                ){
+                ) {
                     Canvas(
                         modifier = Modifier
                             .size(PRIORITY_INDICATOR_SIZE),
@@ -85,10 +109,11 @@ fun TaskItem(
                 }
             }
             Spacer(modifier = Modifier.height(MEDIUM_PADDING))
-            Box(modifier = Modifier
-                .padding(end = DESCRIPTION_TEXT_END_PADDING)
-                .fillMaxWidth()
-            ){
+            Box(
+                modifier = Modifier
+                    .padding(end = DESCRIPTION_TEXT_END_PADDING)
+                    .fillMaxWidth()
+            ) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = toDoTask.description,
@@ -100,10 +125,11 @@ fun TaskItem(
                 )
             }
             Spacer(modifier = Modifier.height(LARGE_PADDING))
-            Box(modifier = Modifier
-                .fillMaxWidth(),
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(),
                 contentAlignment = Alignment.CenterEnd
-            ){
+            ) {
                 Text(
                     text = toDoTask.dateAdded,
                     color = MaterialTheme.colorScheme.onSecondaryContainer
@@ -119,7 +145,7 @@ fun TaskItem(
 
 @Preview
 @Composable
-fun TaskItemPreview(){
+fun TaskItemPreview() {
     TaskItem(
         toDoTask = ToDoTask(
             1,
@@ -127,9 +153,8 @@ fun TaskItemPreview(){
             "Am 8:00 gehe ich einzukaufen, später treffe ich mich mit dem Freund jeh jhwke jhkjwhe  hwkej kwjhekw khwkejK  knwe",
             "13.02.2024",
             Priority.LOW,
-            Color(0xFF4F378B).toArgb(),
-            Color(0xFFCCC2DC).toArgb()
         ),
-        navigateToTaskScreen = {}
+        navigateToTaskScreen = {},
+        0
     )
 }
