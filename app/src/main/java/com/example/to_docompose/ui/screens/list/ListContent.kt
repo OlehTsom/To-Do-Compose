@@ -1,5 +1,6 @@
 package com.example.to_docompose.ui.screens.list
 
+
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -33,7 +34,7 @@ import com.example.to_docompose.ui.theme.LARGE_PADDING
 import com.example.to_docompose.ui.theme.MEDIUM_PADDING
 import com.example.to_docompose.ui.theme.PRIORITY_INDICATOR_SIZE
 import com.example.to_docompose.ui.theme.TASK_ITEM_ELEVATION
-import com.example.to_docompose.ui.theme.getColorForLightOderDarkTheme
+import com.example.to_docompose.ui.theme.getRandomsColorForTheme
 
 @Composable
 fun ListContent(
@@ -42,14 +43,13 @@ fun ListContent(
 ) {
     LazyColumn() {
         items(
-            toDoTasks.size,
-            key = { index ->
-                toDoTasks[index].id
-            }) {index ->
+            items = toDoTasks,
+            key = { task ->
+                task.id
+            }) {task ->
             TaskItem(
-                toDoTask = toDoTasks[index],
-                navigateToTaskScreen = navigateToTaskScreen,
-                taskIndex = index
+                toDoTask = task,
+                navigateToTaskScreen = navigateToTaskScreen
             )
             Spacer(modifier = Modifier.height(10.dp))
         }
@@ -59,8 +59,7 @@ fun ListContent(
 @Composable
 fun TaskItem(
     toDoTask: ToDoTask,
-    navigateToTaskScreen: (taskId: Int) -> Unit,
-    taskIndex: Int
+    navigateToTaskScreen: (taskId: Int) -> Unit
 ) {
 
 
@@ -68,10 +67,7 @@ fun TaskItem(
         modifier = Modifier
             .fillMaxWidth(),
         color = if (isSystemInDarkTheme())
-            getColorForLightOderDarkTheme(taskIndex, true) else getColorForLightOderDarkTheme(
-            taskIndex,
-            false
-        ),
+            Color(toDoTask.itemColorDarkTheme) else Color(toDoTask.itemColorLightTheme),
         shape = ShapeDefaults.Small,
         shadowElevation = TASK_ITEM_ELEVATION,
         onClick = {
@@ -153,8 +149,9 @@ fun TaskItemPreview() {
             "Am 8:00 gehe ich einzukaufen, später treffe ich mich mit dem Freund jeh jhwke jhkjwhe  hwkej kwjhekw khwkejK  knwe",
             "13.02.2024",
             Priority.LOW,
+            getRandomsColorForTheme().keys.first(),
+            getRandomsColorForTheme().values.first()
         ),
-        navigateToTaskScreen = {},
-        0
+        navigateToTaskScreen = {}
     )
 }

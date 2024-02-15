@@ -4,6 +4,8 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import kotlin.random.Random
 
 val md_theme_light_primary = Color(0xFF6750A4)
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
@@ -87,38 +89,145 @@ val HighPriorityColor = Color(0xFFFF4646)
 val NonePriorityColor = Color(0xFFFFFFFF)
 
 val listColorLightTheme = listOf(
-    Color(0xFFE6E6FA),
-    Color(0xFFFFB6C1),
-    Color(0xFFFFFF99),
-    Color(0xFFFFE5B4),
-    Color(0xFFF5FFFA),
-    Color(0xFFF08080),
-    Color(0xFFD3D3D3),
-    Color(0xFFADD8E6),
-    Color(0xFF90EE90),
-    Color(0xFFFAFAFA),
+    Color(0xFFE6E6FA),  // Лаванда
+    Color(0xFFFFB6C1),  // Світло-рожевий
+    Color(0xFFFFFF99),  // Пастельно-жовтий
+    Color(0xFFFFE5B4),  // Блідо-персиковий
+    Color(0xFFF5FFFA),  // М'ята
+    Color(0xFFF08080),  // Блідий кораловий
+    Color(0xFFD3D3D3),  // Світло-сірий
+    Color(0xFFADD8E6),  // Блідий синій
+    Color(0xFF90EE90),  // Світло-зелений
+    Color(0xFFFAFAFA),  // Перлинний
+    Color(0xFFD8BFD8),  // Туманна фіолетова
+    Color(0xFFFAEBD7),  // Античний білий
+    Color(0xFFF0F8FF),  // Блідо-блакитний
+    Color(0xFFFDF5E6),  // Блідо-помаранчевий
+    Color(0xFFF0FFFF),  // Світло-блакитний
+    Color(0xFFF5F5DC),  // Блідо-бежевий
+    Color(0xFFB0E0E6),  // Блідий турецький синій
+    Color(0xFFF0F8FF),  // Алісовий
+    Color(0xFFFAF0E6),  // Лляний
+    Color(0xFFF5DEB3),  // Помаранчево-блідий
+    Color(0xFFF5F5F5),  // Чистий білий
+    Color(0xFFFAFAD2),  // Блідий жовтий
+    Color(0xFFE0FFFF),  // Блідо-блакитний
+    Color(0xFFDCDCDC),  // Лайт-сірий
+    Color(0xFFF8F8FF),  // Світло-фіолетовий
+    Color(0xFFF0FFF0),  // М'ята-кремовий
+    Color(0xFFE6E6FA),  // Рожево-блакитний
+    Color(0xFFF0E68C),  // Хромо-блідий
+    Color(0xFFF8F8FF),  // Івово-блідий
+    Color(0xFFFAF0E6),  // Лляний
+    Color(0xFFFAFAD2),  // Світло-жовтий
+    Color(0xFFF5DEB3),  // Блідо-персиковий
+    Color(0xFFE6E6FA),  // Лаванда
+    Color(0xFFFFB6C1),  // Світло-рожевий
+    Color(0xFFFFFF99),  // Пастельно-жовтий
+    Color(0xFFFFE5B4),  // Блідо-персиковий
+    Color(0xFFF5FFFA),  // М'ята
+    Color(0xFFF08080),  // Блідий кораловий
+    Color(0xFFD3D3D3),  // Світло-сірий
+    Color(0xFFADD8E6),  // Блідий синій
+    Color(0xFF90EE90),  // Світло-зелений
+    Color(0xFFFAFAFA),  // Перлинний
+    Color(0xFFD8BFD8),  // Туманна фіолетова
+    Color(0xFFFAEBD7),  // Античний білий
+    Color(0xFFF0F8FF),  // Блідо-блакитний
+    Color(0xFFFDF5E6),  // Блідо-помаранчевий
+    Color(0xFFF0FFFF),  // Світло-блакитний
+    Color(0xFFF5F5DC),  // Блідо-бежевий
+    Color(0xFFB0E0E6),  // Блідий турецький синій
+    Color(0xFFF0F8FF),  // Алісовий
+    Color(0xFFFAF0E6),  // Лляний
+    Color(0xFFF5DEB3),  // Помаранчево-блідий
+    Color(0xFFF5F5F5),  // Чистий білий
+    Color(0xFFFAFAD2),  // Блідий жовтий
+    Color(0xFFE0FFFF),  // Блідо-блакитний
+    Color(0xFFDCDCDC),  // Лайт-сірий
+    Color(0xFFF8F8FF),  // Світло-фіолетовий
+    Color(0xFFF0FFF0),  // М'ята-кремовий
+    Color(0xFFE6E6FA),  // Рожево-блакитний
+    Color(0xFFF0E68C),  // Хромо-блідий
+    Color(0xFFF8F8FF),  // Івово-блідий
+    Color(0xFFFAF0E6),  // Лляний
+    Color(0xFFFAFAD2),  // Світло-жовтий
+    Color(0xFFF5DEB3)   // Блідо-персиковий
     )
 
 val listColorDarkTheme = listOf(
-    Color(0xFF6E7077),
-    Color(0xFF8B5F65),
-    Color(0xFF8B8B7A),
-    Color(0xFF8B7D6B),
-    Color(0xFF3C5148),
-    Color(0xFF8B6969),
-    Color(0xFFA9A9A9),
-    Color(0xFF5CACEE),
-    Color(0xFF4D8C57),
-    Color(0xFFCDCDC1),
+    Color(0xFF9E9FB7),  // Лаванда
+    Color(0xFFB26673),  // Світло-рожевий
+    Color(0xFFB2B279),  // Пастельно-жовтий
+    Color(0xFFB28E7B),  // Блідо-персиковий
+    Color(0xFFB2BEB2),  // М'ята
+    Color(0xFFB25D5D),  // Блідий кораловий
+    Color(0xFF737373),  // Світло-сірий
+    Color(0xFF607D95),  // Блідий синій
+    Color(0xFF5B7C5B),  // Світло-зелений
+    Color(0xFFBEBEBE),  // Перлинний
+    Color(0xFF8A6E8A),  // Туманна фіолетова
+    Color(0xFFA3958F),  // Античний білий
+    Color(0xFFA7B4BD),  // Блідо-блакитний
+    Color(0xFFABA8A0),  // Блідо-помаранчевий
+    Color(0xFFA7A7B7),  // Світло-блакитний
+    Color(0xFFB1B1A7),  // Блідо-бежевий
+    Color(0xFF778E9E),  // Блідий турецький синій
+    Color(0xFFA7A7B7),  // Алісовий
+    Color(0xFFA68F82),  // Лляний
+    Color(0xFFA6957B),  // Помаранчево-блідий
+    Color(0xFFA7A7A7),  // Чистий білий
+    Color(0xFFAFADA2),  // Блідий жовтий
+    Color(0xFF759F9F),  // Блідо-блакитний
+    Color(0xFF7F7F7F),  // Лайт-сірий
+    Color(0xFF9FAFB7),  // Світло-фіолетовий
+    Color(0xFFA6B6A6),  // М'ята-кремовий
+    Color(0xFF9E9EAF),  // Рожево-блакитний
+    Color(0xFFA68F77),  // Хромо-блідий
+    Color(0xFF9F9FB7),  // Івово-блідий
+    Color(0xFFA68F82),  // Лляний
+    Color(0xFFAFADA2),  // Світло-жовтий
+    Color(0xFFA68F77),  // Блідий персиковий
+    Color(0xFF9E9FB7),  // Лаванда
+    Color(0xFFB26673),  // Світло-рожевий
+    Color(0xFFB2B279),  // Пастельно-жовтий
+    Color(0xFFB28E7B),  // Блідо-персиковий
+    Color(0xFFB2BEB2),  // М'ята
+    Color(0xFFB25D5D),  // Блідий кораловий
+    Color(0xFF737373),  // Світло-сірий
+    Color(0xFF607D95),  // Блідий синій
+    Color(0xFF5B7C5B),  // Світло-зелений
+    Color(0xFFBEBEBE),  // Перлинний
+    Color(0xFF8A6E8A),  // Туманна фіолетова
+    Color(0xFFA3958F),  // Античний білий
+    Color(0xFFA7B4BD),  // Блідо-блакитний
+    Color(0xFFABA8A0),  // Блідо-помаранчевий
+    Color(0xFFA7A7B7),  // Світло-блакитний
+    Color(0xFFB1B1A7),  // Блідо-бежевий
+    Color(0xFF778E9E),  // Блідий турецький синій
+    Color(0xFFA7A7B7),  // Алісовий
+    Color(0xFFA68F82),  // Лляний
+    Color(0xFFA6957B),  // Помаранчево-блідий
+    Color(0xFFA7A7A7),  // Чистий білий
+    Color(0xFFAFADA2),  // Блідий жовтий
+    Color(0xFF759F9F),  // Блідо-блакитний
+    Color(0xFF7F7F7F),  // Лайт-сірий
+    Color(0xFF9FAFB7),  // Світло-фіолетовий
+    Color(0xFFA6B6A6),  // М'ята-кремовий
+    Color(0xFF9E9EAF),  // Рожево-блакитний
+    Color(0xFFA68F77),  // Хромо-блідий
+    Color(0xFF9F9FB7),  // Івово-блідий
+    Color(0xFFA68F82),  // Лляний
+    Color(0xFFAFADA2),   // Світло-жовтий
+    Color(0xFFC4AB7E)
 )
 
-fun getColorForLightOderDarkTheme(position: Int, isDarkTheme: Boolean): Color {
-    if (isDarkTheme) {
-        val index = position % listColorDarkTheme.size
-        return listColorDarkTheme[index]
-    }else{
-        val index = position % listColorLightTheme.size
-        return listColorLightTheme[index]
-    }
+fun getRandomsColorForTheme(): Map<Int, Int> {
+    val colorIndex = (listColorLightTheme.indices).random()
+    return mapOf(
+            listColorDarkTheme[colorIndex].toArgb()
+                    to
+            listColorLightTheme[colorIndex].toArgb()
+    )
 }
 

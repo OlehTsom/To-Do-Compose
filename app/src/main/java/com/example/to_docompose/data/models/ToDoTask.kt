@@ -15,5 +15,7 @@ data class ToDoTask(
     val title : String,
     val description : String,
     val dateAdded : String,
-    val priority : Priority
+    val priority : Priority,
+    val itemColorDarkTheme: Int,
+    val itemColorLightTheme: Int
 )
