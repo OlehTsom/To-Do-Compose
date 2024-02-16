@@ -88,6 +88,8 @@ val MediumPriorityColor = Color(0xFFFFC114)
 val HighPriorityColor = Color(0xFFFF4646)
 val NonePriorityColor = Color(0xFFFFFFFF)
 
+val LightGray = Color(0xFFC2C2C2)
+
 val listColorLightTheme = listOf(
     Color(0xFFE6E6FA),  // Лаванда
     Color(0xFFFFB6C1),  // Світло-рожевий
