@@ -35,19 +35,22 @@ import com.example.to_docompose.ui.theme.MEDIUM_PADDING
 import com.example.to_docompose.ui.theme.PRIORITY_INDICATOR_SIZE
 import com.example.to_docompose.ui.theme.TASK_ITEM_ELEVATION
 import com.example.to_docompose.ui.theme.getRandomsColorForTheme
+import com.example.to_docompose.utils.RequestState
 
 @Composable
 fun ListContent(
-    toDoTasks: List<ToDoTask>,
+    toDoTasks: RequestState<List<ToDoTask>>,
     navigateToTaskScreen: (taskId: Int) -> Unit
 ) {
-    if (toDoTasks.isEmpty()){
-        EmptyContent()
-    }else{
-        DisplayTasks(
-            toDoTasks = toDoTasks,
-            navigateToTaskScreen = navigateToTaskScreen
-        )
+    if (toDoTasks is RequestState.Success){
+        if (toDoTasks.data.isEmpty()){
+            EmptyContent()
+        }else{
+            DisplayTasks(
+                toDoTasks = toDoTasks.data,
+                navigateToTaskScreen = navigateToTaskScreen
+            )
+        }
     }
 }
 

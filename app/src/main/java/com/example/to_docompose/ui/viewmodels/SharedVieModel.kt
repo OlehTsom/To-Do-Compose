@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.to_docompose.data.models.ToDoTask
 import com.example.to_docompose.data.repository.ToDoRepository
+import com.example.to_docompose.utils.RequestState
 import com.example.to_docompose.utils.SearchAppBarState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,14 +26,23 @@ class SharedVieModel @Inject constructor(
         mutableStateOf("")
 
     private val _allTasksState =
-        MutableStateFlow<List<ToDoTask>>(emptyList())
-    val allTasks : StateFlow<List<ToDoTask>> =
+        MutableStateFlow<RequestState<List<ToDoTask>>>(RequestState.Idle)
+    val allTasks : StateFlow<RequestState<List<ToDoTask>>> =
         _allTasksState.asStateFlow()
 
     fun getAllTasks(){
         viewModelScope.launch {
-            toDoRepository.getAllTasks.collect{
-                _allTasksState.emit(it)
+            _allTasksState.emit(RequestState.Loading)
+        }
+        try {
+            viewModelScope.launch {
+                toDoRepository.getAllTasks.collect{
+                    _allTasksState.emit(RequestState.Success(it))
+                }
+            }
+        }catch (error: Exception){
+            viewModelScope.launch {
+                _allTasksState.emit(RequestState.Error(error))
             }
         }
     }
