@@ -88,7 +88,10 @@ fun DefaultListAppTopBar(
 ) {
     TopAppBar(
         title = {
-            Text(text = stringResource(R.string.list_screen_title))
+            Text(
+                text = stringResource(R.string.list_screen_title),
+                color = MaterialTheme.colorScheme.surface
+            )
         },
         actions = {
             ListAppBarAction(
