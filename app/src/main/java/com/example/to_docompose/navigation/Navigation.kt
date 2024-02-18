@@ -27,7 +27,8 @@ fun SetupNavigation(
             sharedVieModel = sharedVieModel
         )
         taskComposable(
-            navigateToListScreen = screen.list
+            navigateToListScreen = screen.list,
+            sharedVieModel = sharedVieModel
         )
     }
 

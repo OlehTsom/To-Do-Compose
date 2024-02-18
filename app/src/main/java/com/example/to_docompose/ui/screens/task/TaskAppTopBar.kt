@@ -22,19 +22,35 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.to_docompose.R
 import com.example.to_docompose.data.models.Priority
 import com.example.to_docompose.data.models.ToDoTask
+import com.example.to_docompose.ui.theme.getRandomsColorForTheme
 import com.example.to_docompose.utils.Action
+import com.example.to_docompose.utils.RequestState
 
 @Composable
 fun TaskAppTopBar(
-    navigateToListScreen: (Action) -> Unit
+    selectedTask: ToDoTask?,
+    navigateToListScreen: (Action) -> Unit,
+    containerColorMap: Map<Int, Int>
 ) {
-    NewTaskAppBar(navigateToListScreen = navigateToListScreen)
+    if (selectedTask == null) {
+        NewTaskAppBar(
+            navigateToListScreen = navigateToListScreen,
+            containerColorMap = containerColorMap
+        )
+    } else {
+        ExistingTaskAppBar(
+            selectedTask = selectedTask,
+            navigateToListScreen = navigateToListScreen
+        )
+    }
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewTaskAppBar(
-    navigateToListScreen: (Action) -> Unit
+    navigateToListScreen: (Action) -> Unit,
+    containerColorMap: Map<Int, Int>
 ) {
     TopAppBar(
         navigationIcon = {
@@ -43,14 +59,17 @@ fun NewTaskAppBar(
         title = {
             Text(
                 text = stringResource(R.string.add_task_text),
-                color = MaterialTheme.colorScheme.surface,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
         },
         actions = { AddAction(onAddClicked = navigateToListScreen) },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.inversePrimary
+            containerColor = Color(
+                if (isSystemInDarkTheme())
+                    containerColorMap.keys.first() else containerColorMap.values.first()
+            )
         )
     )
 }
@@ -63,7 +82,7 @@ fun BackAction(
         Icon(
             imageVector = Icons.Filled.ArrowBack,
             contentDescription = stringResource(R.string.back_arrow_text),
-            tint = MaterialTheme.colorScheme.surface
+            tint = MaterialTheme.colorScheme.onSecondaryContainer
         )
     }
 }
@@ -76,7 +95,7 @@ fun AddAction(
         Icon(
             imageVector = Icons.Filled.Check,
             contentDescription = stringResource(id = R.string.add_task_text),
-            tint = MaterialTheme.colorScheme.surface
+            tint = MaterialTheme.colorScheme.onSecondaryContainer
         )
     }
 }
@@ -86,15 +105,15 @@ fun AddAction(
 fun ExistingTaskAppBar(
     selectedTask: ToDoTask,
     navigateToListScreen: (Action) -> Unit
-){
+) {
     TopAppBar(
         navigationIcon = {
-            CloseAction(onCloseClicked = navigateToListScreen )
+            CloseAction(onCloseClicked = navigateToListScreen)
         },
         title = {
             Text(
                 text = selectedTask.title,
-                color = MaterialTheme.colorScheme.surface
+                color = MaterialTheme.colorScheme.onSecondaryContainer
             )
         },
         actions = {
@@ -102,8 +121,10 @@ fun ExistingTaskAppBar(
             UpdateAction(onUpdateClicked = navigateToListScreen)
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color(if (isSystemInDarkTheme())
-                selectedTask.itemColorDarkTheme else selectedTask.itemColorLightTheme)
+            containerColor = Color(
+                if (isSystemInDarkTheme())
+                    selectedTask.itemColorDarkTheme else selectedTask.itemColorLightTheme
+            )
         )
     )
 }
@@ -111,12 +132,12 @@ fun ExistingTaskAppBar(
 @Composable
 fun CloseAction(
     onCloseClicked: (Action) -> Unit
-){
+) {
     IconButton(onClick = { onCloseClicked(Action.NO_ACTION) }) {
         Icon(
             imageVector = Icons.Filled.Close,
             contentDescription = stringResource(R.string.close_task_text),
-            tint = MaterialTheme.colorScheme.surface
+            tint = MaterialTheme.colorScheme.onSecondaryContainer
         )
     }
 }
@@ -124,12 +145,12 @@ fun CloseAction(
 @Composable
 fun DeleteAction(
     onDeleteClicked: (Action) -> Unit
-){
+) {
     IconButton(onClick = { onDeleteClicked(Action.DELETE) }) {
         Icon(
             imageVector = Icons.Filled.Delete,
             contentDescription = stringResource(R.string.delete_task_text),
-            tint = MaterialTheme.colorScheme.surface
+            tint = MaterialTheme.colorScheme.onSecondaryContainer
         )
     }
 }
@@ -137,12 +158,12 @@ fun DeleteAction(
 @Composable
 fun UpdateAction(
     onUpdateClicked: (Action) -> Unit
-){
-    IconButton(onClick = { onUpdateClicked(Action.UPDATE)}) {
+) {
+    IconButton(onClick = { onUpdateClicked(Action.UPDATE) }) {
         Icon(
             imageVector = Icons.Filled.Check,
             contentDescription = stringResource(R.string.update_task_text),
-            tint = MaterialTheme.colorScheme.surface
+            tint = MaterialTheme.colorScheme.onSecondaryContainer
         )
     }
 }
@@ -152,12 +173,13 @@ fun UpdateAction(
 fun NewTaskAppBarPreview() {
     NewTaskAppBar(
         navigateToListScreen = {},
+        containerColorMap = getRandomsColorForTheme()
     )
 }
 
 @Preview
 @Composable
-fun ExistingTaskAppBarPreview(){
+fun ExistingTaskAppBarPreview() {
     ExistingTaskAppBar(
         selectedTask = ToDoTask(
             id = 0,

@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,6 +44,18 @@ class SharedVieModel @Inject constructor(
         }catch (error: Exception){
             viewModelScope.launch {
                 _allTasksState.emit(RequestState.Error(error))
+            }
+        }
+    }
+
+    private val _selectedTaskState:
+        MutableStateFlow<ToDoTask?> = MutableStateFlow(null)
+    val selectedTaskState = _selectedTaskState.asStateFlow()
+
+    fun getSelectedSTask(taskId: Int){
+        viewModelScope.launch {
+            toDoRepository.getSelectedTask(taskId = taskId).collect{task  ->
+                _selectedTaskState.emit(task)
             }
         }
     }
