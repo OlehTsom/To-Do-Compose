@@ -15,4 +15,6 @@
     <string name="delete_task_text">Delete Task</string>
     <string name="update_task_text">Update Task</string>
     <string name="arrow_down_text">Keyboard Arrow Down</string>
+    <string name="title_text">Title</string>
+    <string name="description_text">Description</string>
 </resources>
