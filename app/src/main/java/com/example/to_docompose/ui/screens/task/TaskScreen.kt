@@ -39,7 +39,11 @@ fun TaskScreen(
                 onDescriptionChanged = {},
                 priority = Priority.LOW,
                 onPrioritySelected = {},
-                containerColorMap
+                backgroundColorMap = if (selectedTask != null) {
+                    mapOf(selectedTask.itemColorDarkTheme to selectedTask.itemColorLightTheme)
+                } else {
+                    containerColorMap
+                }
             )
         }
     }
