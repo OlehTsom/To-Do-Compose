@@ -232,4 +232,3 @@ fun getRandomsColorForTheme(): Map<Int, Int> {
             listColorLightTheme[colorIndex].toArgb()
     )
 }
-
