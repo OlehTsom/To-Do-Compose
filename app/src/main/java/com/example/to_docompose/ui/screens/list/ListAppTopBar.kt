@@ -15,12 +15,14 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,13 +44,15 @@ import com.example.to_docompose.ui.viewmodels.SharedVieModel
 import com.example.to_docompose.utils.SearchAppBarState
 import com.example.to_docompose.utils.TrailingIconState
 
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListAppTopBar(
     sharedVieModel: SharedVieModel,
     searchAppBarState: SearchAppBarState,
-    searchTextState: String
+    searchTextState: String,
+    scrollBehavior: TopAppBarScrollBehavior
 ) {
-
     when(searchAppBarState){
         SearchAppBarState.CLOSED ->{
             DefaultListAppTopBar(
@@ -57,7 +61,8 @@ fun ListAppTopBar(
                         SearchAppBarState.OPENED
                 },
                 onSortClicked = {},
-                onDeleteClicked = {}
+                onDeleteClicked = {},
+                scrollBehavior = scrollBehavior
             )
         }
         else -> {
@@ -84,13 +89,14 @@ fun ListAppTopBar(
 fun DefaultListAppTopBar(
     onSearchClicked: () -> Unit,
     onSortClicked: (Priority) -> Unit,
-    onDeleteClicked: () -> Unit
+    onDeleteClicked: () -> Unit,
+    scrollBehavior: TopAppBarScrollBehavior
 ) {
-    TopAppBar(
+    MediumTopAppBar(
         title = {
             Text(
                 text = stringResource(R.string.list_screen_title),
-                color = MaterialTheme.colorScheme.surface
+                color = MaterialTheme.colorScheme.onBackground
             )
         },
         actions = {
@@ -100,9 +106,7 @@ fun DefaultListAppTopBar(
                 onDeleteClicked = onDeleteClicked
             )
         },
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.inversePrimary
-        )
+        scrollBehavior = scrollBehavior
     )
 }
 
@@ -129,7 +133,7 @@ fun SearchAction(
         Icon(
             imageVector = Icons.Filled.Search,
             contentDescription = stringResource(R.string.search_action),
-            tint = MaterialTheme.colorScheme.surface
+            tint = MaterialTheme.colorScheme.onBackground
         )
     }
 }
@@ -147,7 +151,7 @@ fun SortAction(
         Icon(
             painter = painterResource(id = R.drawable.ic_filter),
             contentDescription = stringResource(R.string.sort_tasks),
-            tint = MaterialTheme.colorScheme.surface
+            tint = MaterialTheme.colorScheme.onBackground
         )
         DropdownMenu(
             modifier = Modifier
@@ -207,7 +211,7 @@ fun DeleteAllItems(
         Icon(
             imageVector = Icons.Filled.MoreVert,
             contentDescription = stringResource(R.string.sort_tasks),
-            tint = MaterialTheme.colorScheme.surface
+            tint = MaterialTheme.colorScheme.onBackground
         )
         DropdownMenu(
             modifier = Modifier
@@ -246,8 +250,7 @@ fun SearchAppBar(
         modifier = Modifier
             .fillMaxWidth()
             .height(SEARCH_TOP_BAR_HIGH),
-        shadowElevation = 4.dp,//TODO("Розубратись з дефолтною elevation")
-        color = MaterialTheme.colorScheme.inversePrimary
+        color = MaterialTheme.colorScheme.surface
     ) {
         TextField(
             modifier = Modifier
@@ -261,7 +264,7 @@ fun SearchAppBar(
                     modifier = Modifier
                         .alpha(0.5f),
                     text = stringResource(R.string.search_placeholder),
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onBackground
                 )
             },
             textStyle = MaterialTheme.typography.bodyLarge,
@@ -273,7 +276,7 @@ fun SearchAppBar(
                             .alpha(0.38f),
                         imageVector = Icons.Filled.Search,
                         contentDescription = stringResource(R.string.search_icon),
-                        tint = MaterialTheme.colorScheme.surface
+                        tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
             },
@@ -303,17 +306,19 @@ fun SearchAppBar(
                             .alpha(0.78f),
                         imageVector = Icons.Filled.Close,
                         contentDescription = stringResource(R.string.close_icon),
-                        tint = MaterialTheme.colorScheme.surface
+                        tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
             },
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
-                cursorColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f),
+                cursorColor = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f),
                 focusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
+                unfocusedIndicatorColor = Color.Transparent,
+                focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                unfocusedTextColor = MaterialTheme.colorScheme.onBackground
             ),
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Search
@@ -328,16 +333,18 @@ fun SearchAppBar(
 
 }
 
+/*
 @Preview
 @Composable
 fun DefaultListAppTopBarPreview() {
     DefaultListAppTopBar(
         onSearchClicked = {},
         onSortClicked = {},
-        onDeleteClicked = {}
+        onDeleteClicked = {},
+        scrollBehavior = {}
     )
 }
-
+*/
 @Preview
 @Composable
 fun SearchAppBArPreview(){
