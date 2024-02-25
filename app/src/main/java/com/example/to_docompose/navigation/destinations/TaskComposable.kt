@@ -35,8 +35,7 @@ fun NavGraphBuilder.taskComposable(
 
         TaskScreen(
             selectedTask = selectedTask,
-            navigateToListScreen = navigateToListScreen,
-            containerColorMap = containerColorMap
+            navigateToListScreen = navigateToListScreen
         )
     }
 }

@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.to_docompose.data.models.Priority
 import com.example.to_docompose.data.models.ToDoTask
 import com.example.to_docompose.ui.theme.DESCRIPTION_TEXT_END_PADDING
@@ -84,10 +85,7 @@ fun TaskItem(
     Surface(
         modifier = Modifier
             .fillMaxWidth(),
-        color = if (isSystemInDarkTheme())
-            Color(toDoTask.itemColorDarkTheme) else Color(toDoTask.itemColorLightTheme),
-        shape = ShapeDefaults.Small,
-        shadowElevation = TASK_ITEM_ELEVATION,
+        color = MaterialTheme.colorScheme.background,
         onClick = {
             navigateToTaskScreen(toDoTask.id)
         }
@@ -104,7 +102,9 @@ fun TaskItem(
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontSize = 19.sp
+                    )
                 )
                 Box(
                     modifier = Modifier

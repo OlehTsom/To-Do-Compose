@@ -31,16 +31,13 @@ fun TaskContent(
     description: String,
     onDescriptionChanged: (String) -> Unit,
     priority: Priority,
-    onPrioritySelected: (Priority) -> Unit,
-    backgroundColorMap: Map<Int,Int>
+    onPrioritySelected: (Priority) -> Unit
 ) {
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color(if (isSystemInDarkTheme())
-                backgroundColorMap.keys.first() else backgroundColorMap.values.first())
-            )
+            .background(MaterialTheme.colorScheme.background)
             .padding(LARGE_PADDING)
     ) {
 
@@ -99,7 +96,6 @@ fun TaskContentPreview(){
         description = "Description",
         onDescriptionChanged = {},
         priority = Priority.LOW,
-        onPrioritySelected = {},
-        getRandomsColorForTheme()
+        onPrioritySelected = {}
     )
 }

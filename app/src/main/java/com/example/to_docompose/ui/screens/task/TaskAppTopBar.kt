@@ -29,13 +29,11 @@ import com.example.to_docompose.utils.RequestState
 @Composable
 fun TaskAppTopBar(
     selectedTask: ToDoTask?,
-    navigateToListScreen: (Action) -> Unit,
-    containerColorMap: Map<Int, Int>
+    navigateToListScreen: (Action) -> Unit
 ) {
     if (selectedTask == null) {
         NewTaskAppBar(
-            navigateToListScreen = navigateToListScreen,
-            containerColorMap = containerColorMap
+            navigateToListScreen = navigateToListScreen
         )
     } else {
         ExistingTaskAppBar(
@@ -49,8 +47,7 @@ fun TaskAppTopBar(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewTaskAppBar(
-    navigateToListScreen: (Action) -> Unit,
-    containerColorMap: Map<Int, Int>
+    navigateToListScreen: (Action) -> Unit
 ) {
     TopAppBar(
         navigationIcon = {
@@ -66,10 +63,7 @@ fun NewTaskAppBar(
         },
         actions = { AddAction(onAddClicked = navigateToListScreen) },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color(
-                if (isSystemInDarkTheme())
-                    containerColorMap.keys.first() else containerColorMap.values.first()
-            )
+            containerColor = MaterialTheme.colorScheme.background
         )
     )
 }
@@ -121,10 +115,7 @@ fun ExistingTaskAppBar(
             UpdateAction(onUpdateClicked = navigateToListScreen)
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color(
-                if (isSystemInDarkTheme())
-                    selectedTask.itemColorDarkTheme else selectedTask.itemColorLightTheme
-            )
+            containerColor = MaterialTheme.colorScheme.background
         )
     )
 }
@@ -172,8 +163,7 @@ fun UpdateAction(
 @Composable
 fun NewTaskAppBarPreview() {
     NewTaskAppBar(
-        navigateToListScreen = {},
-        containerColorMap = getRandomsColorForTheme()
+        navigateToListScreen = {}
     )
 }
 

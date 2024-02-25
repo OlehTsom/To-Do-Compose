@@ -63,7 +63,7 @@ fun ListScreen(
         Box(
             modifier = Modifier
                 .padding(innerPadding)
-                .padding(10.dp), // Змініть на вашу висоту AppBar
+                .padding(horizontal = 10.dp), // Змініть на вашу висоту AppBar
         ) {
             ListContent(
                 toDoTasks = allTasks,

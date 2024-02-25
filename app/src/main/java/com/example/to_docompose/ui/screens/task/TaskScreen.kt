@@ -16,15 +16,13 @@ import com.example.to_docompose.utils.RequestState
 @Composable
 fun TaskScreen(
     selectedTask: ToDoTask?,
-    navigateToListScreen: (Action) -> Unit,
-    containerColorMap: Map<Int,Int>
+    navigateToListScreen: (Action) -> Unit
 ){
     Scaffold(
         topBar = {
             TaskAppTopBar(
                 selectedTask = selectedTask,
-                navigateToListScreen = navigateToListScreen,
-                containerColorMap = containerColorMap
+                navigateToListScreen = navigateToListScreen
             )
         }
     ){paddingValues ->
@@ -38,12 +36,7 @@ fun TaskScreen(
                 description = "",
                 onDescriptionChanged = {},
                 priority = Priority.LOW,
-                onPrioritySelected = {},
-                backgroundColorMap = if (selectedTask != null) {
-                    mapOf(selectedTask.itemColorDarkTheme to selectedTask.itemColorLightTheme)
-                } else {
-                    containerColorMap
-                }
+                onPrioritySelected = {}
             )
         }
     }
