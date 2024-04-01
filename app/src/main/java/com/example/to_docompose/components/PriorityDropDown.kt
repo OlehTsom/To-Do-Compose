@@ -56,7 +56,7 @@ fun PriorityDropDown(
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
-                shape = MaterialTheme.shapes.small
+                shape = MaterialTheme.shapes.extraSmall
 
             )
             .clickable { expended = true },
