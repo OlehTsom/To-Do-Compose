@@ -32,6 +32,9 @@ fun ListScreen(
     navigateToTaskScreen: (taskId: Int) -> Unit,
     sharedVieModel: SharedVieModel
 ) {
+
+    val action by sharedVieModel.action
+
     LaunchedEffect(key1 = true){
         sharedVieModel.getAllTasks()
     }
@@ -44,6 +47,8 @@ fun ListScreen(
             by sharedVieModel.searchTextState
 
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    sharedVieModel.handleDatabaseActions(action)
 
     Scaffold(modifier = Modifier
         .nestedScroll(scrollBehavior.nestedScrollConnection),

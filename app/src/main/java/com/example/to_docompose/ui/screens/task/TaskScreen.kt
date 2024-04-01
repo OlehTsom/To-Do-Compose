@@ -12,7 +12,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.to_docompose.data.models.Priority
 import com.example.to_docompose.data.models.ToDoTask
-import com.example.to_docompose.ui.theme.getRandomsColorForTheme
 import com.example.to_docompose.ui.viewmodels.SharedVieModel
 import com.example.to_docompose.utils.Action
 import com.example.to_docompose.utils.RequestState
@@ -74,7 +73,7 @@ fun TaskScreen(
 fun displayToast(context: Context){
     Toast.makeText(
             context,
-            "Leere Felder",
+            "Felder sind leer",
             Toast.LENGTH_SHORT
         ).show()
 }

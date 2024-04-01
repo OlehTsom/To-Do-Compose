@@ -1,6 +1,5 @@
 package com.example.to_docompose.ui.screens.task
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
@@ -22,9 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.to_docompose.R
 import com.example.to_docompose.data.models.Priority
 import com.example.to_docompose.data.models.ToDoTask
-import com.example.to_docompose.ui.theme.getRandomsColorForTheme
 import com.example.to_docompose.utils.Action
-import com.example.to_docompose.utils.RequestState
 
 @Composable
 fun TaskAppTopBar(
@@ -175,10 +172,7 @@ fun ExistingTaskAppBarPreview() {
             id = 0,
             "Pläne für Montag",
             "",
-            "21212",
-            Priority.LOW,
-            Color.Black.toArgb(),
-            Color.Black.toArgb()
+            Priority.LOW
         ),
         navigateToListScreen = {}
     )

@@ -3,8 +3,6 @@ package com.example.to_docompose.navigation.destinations
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
@@ -14,7 +12,6 @@ import com.example.to_docompose.ui.viewmodels.SharedVieModel
 import com.example.to_docompose.utils.Action
 import com.example.to_docompose.utils.Constants.TASK_ARGUMENT_KEY
 import com.example.to_docompose.utils.Constants.TASK_SCREEN
-import com.example.to_docompose.ui.theme.getRandomsColorForTheme
 
 fun NavGraphBuilder.taskComposable(
     sharedVieModel: SharedVieModel,
@@ -30,9 +27,6 @@ fun NavGraphBuilder.taskComposable(
         sharedVieModel.getSelectedSTask(taskId)
 
         val selectedTask by sharedVieModel.selectedTaskState.collectAsState()
-        val containerColorMap by remember {
-            mutableStateOf(getRandomsColorForTheme())
-        }
 
         LaunchedEffect(key1 = selectedTask){
             sharedVieModel.updateTaskFields(selectedTask)

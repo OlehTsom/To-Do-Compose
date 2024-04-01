@@ -1,9 +1,7 @@
 package com.example.to_docompose.ui.screens.list
 
 
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,14 +13,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,8 +29,6 @@ import com.example.to_docompose.ui.theme.DESCRIPTION_TEXT_END_PADDING
 import com.example.to_docompose.ui.theme.LARGE_PADDING
 import com.example.to_docompose.ui.theme.MEDIUM_PADDING
 import com.example.to_docompose.ui.theme.PRIORITY_INDICATOR_SIZE
-import com.example.to_docompose.ui.theme.TASK_ITEM_ELEVATION
-import com.example.to_docompose.ui.theme.getRandomsColorForTheme
 import com.example.to_docompose.utils.RequestState
 
 @Composable
@@ -165,10 +158,7 @@ fun TaskItemPreview() {
             1,
             "Pläne für Montag",
             "Am 8:00 gehe ich einzukaufen, später treffe ich mich mit dem Freund jeh jhwke jhkjwhe  hwkej kwjhekw khwkejK  knwe",
-            "13.02.2024",
-            Priority.LOW,
-            getRandomsColorForTheme().keys.first(),
-            getRandomsColorForTheme().values.first()
+            Priority.LOW
         ),
         navigateToTaskScreen = {}
     )
