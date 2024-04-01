@@ -1,5 +1,6 @@
 package com.example.to_docompose.navigation.destinations
 
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,9 +34,14 @@ fun NavGraphBuilder.taskComposable(
             mutableStateOf(getRandomsColorForTheme())
         }
 
+        LaunchedEffect(key1 = selectedTask){
+            sharedVieModel.updateTaskFields(selectedTask)
+        }
+
         TaskScreen(
             selectedTask = selectedTask,
-            navigateToListScreen = navigateToListScreen
+            navigateToListScreen = navigateToListScreen,
+            sharedVieModel = sharedVieModel
         )
     }
 }

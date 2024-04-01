@@ -1,9 +1,11 @@
 package com.example.to_docompose.ui.viewmodels
 
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.to_docompose.data.models.Priority
 import com.example.to_docompose.data.models.ToDoTask
 import com.example.to_docompose.data.repository.ToDoRepository
 import com.example.to_docompose.utils.RequestState
@@ -20,6 +22,11 @@ import javax.inject.Inject
 class SharedVieModel @Inject constructor(
     private val toDoRepository: ToDoRepository
 ) : ViewModel(){
+
+    private val id : MutableState<Int> = mutableIntStateOf(0)
+    val title: MutableState<String> = mutableStateOf("")
+    val description: MutableState<String> = mutableStateOf("")
+    val priority: MutableState<Priority> = mutableStateOf(Priority.LOW)
 
     val searchAppBarState: MutableState<SearchAppBarState> =
         mutableStateOf(SearchAppBarState.CLOSED)
@@ -57,6 +64,20 @@ class SharedVieModel @Inject constructor(
             toDoRepository.getSelectedTask(taskId = taskId).collect{task  ->
                 _selectedTaskState.emit(task)
             }
+        }
+    }
+
+    fun updateTaskFields(selectedTask: ToDoTask?){
+        if (selectedTask != null){
+            id.value = selectedTask.id
+            title.value = selectedTask.title
+            description.value = selectedTask.description
+            priority.value = selectedTask.priority
+        }else{
+            id.value = 0
+            title.value = ""
+            description.value = ""
+            priority.value = Priority.LOW
         }
     }
 
