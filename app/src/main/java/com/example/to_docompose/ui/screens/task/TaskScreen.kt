@@ -41,7 +41,7 @@ fun TaskScreen(
             TaskContent(
                 title = title,
                 onTitleChanged = {title ->
-                    sharedVieModel.title.value = title
+                    sharedVieModel.updateTitle(title)
                 },
                 description = description,
                 onDescriptionChanged = {description ->
