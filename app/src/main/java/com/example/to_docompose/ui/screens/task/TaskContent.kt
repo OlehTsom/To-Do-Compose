@@ -59,6 +59,14 @@ fun TaskContent(
                 )
             },
             maxLines = 1,
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                unfocusedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                focusedContainerColor = MaterialTheme.colorScheme.background,
+                unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                focusedIndicatorColor = MaterialTheme.colorScheme.onBackground,
+                cursorColor = MaterialTheme.colorScheme.surfaceTint
+            ),
             textStyle = MaterialTheme.typography.bodyMedium
         )
 
@@ -82,7 +90,9 @@ fun TaskContent(
                 focusedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
                 unfocusedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
                 focusedContainerColor = MaterialTheme.colorScheme.background,
-                unfocusedContainerColor = MaterialTheme.colorScheme.background
+                unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                focusedIndicatorColor = MaterialTheme.colorScheme.onBackground,
+                cursorColor = MaterialTheme.colorScheme.surfaceTint
             ),
             label = {
                 Text(

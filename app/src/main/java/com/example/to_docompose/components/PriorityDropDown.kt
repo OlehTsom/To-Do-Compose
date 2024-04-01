@@ -55,8 +55,7 @@ fun PriorityDropDown(
             .height(PRIORITY_DROP_DOWN_HIGH)
             .border(
                 width = 1.dp,
-                color = MaterialTheme.colorScheme.outline
-                    .copy(alpha = ContentAlpha.disabled),
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
                 shape = MaterialTheme.shapes.small
 
             )
