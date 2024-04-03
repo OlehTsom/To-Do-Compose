@@ -34,6 +34,7 @@ class SharedVieModel @Inject constructor(
     val title: MutableState<String> = mutableStateOf("")
     val description: MutableState<String> = mutableStateOf("")
     val priority: MutableState<Priority> = mutableStateOf(Priority.LOW)
+    private val dateAdded: MutableState<String> = mutableStateOf("")
 
     val searchAppBarState: MutableState<SearchAppBarState> =
         mutableStateOf(SearchAppBarState.CLOSED)
@@ -98,6 +99,19 @@ class SharedVieModel @Inject constructor(
         }
     }
 
+    private fun deleteTask(){
+        viewModelScope.launch {
+            val task = ToDoTask(
+                id = id.value,
+                title = title.value,
+                description = description.value,
+                priority = priority.value,
+                dateAdded = dateAdded.value
+            )
+            toDoRepository.deleteTask(toDoTask = task)
+        }
+    }
+
     fun handleDatabaseActions(action: Action){
         when(action){
             Action.ADD -> {
@@ -107,7 +121,7 @@ class SharedVieModel @Inject constructor(
                 updateTask()
             }
             Action.DELETE -> {
-
+                deleteTask()
             }
             Action.DELETE_ALL -> {
 
@@ -128,6 +142,7 @@ class SharedVieModel @Inject constructor(
             title.value = selectedTask.title
             description.value = selectedTask.description
             priority.value = selectedTask.priority
+            dateAdded.value = selectedTask.dateAdded
         }else{
             id.value = 0
             title.value = ""
