@@ -18,6 +18,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -82,13 +85,26 @@ class SharedVieModel @Inject constructor(
         }
     }
 
+    private fun updateTask(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val task = ToDoTask(
+                id = id.value,
+                title = title.value,
+                description = description.value,
+                priority = priority.value,
+                dateAdded = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date())
+            )
+            toDoRepository.updateTask(toDoTask = task)
+        }
+    }
+
     fun handleDatabaseActions(action: Action){
         when(action){
             Action.ADD -> {
                 addTask()
             }
             Action.UPDATE -> {
-
+                updateTask()
             }
             Action.DELETE -> {
 
